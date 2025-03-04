@@ -1,4 +1,5 @@
 package vn.edu.ueh.bit.pipes.core.entities;
 
-public interface IFilter {
+public interface IFilter<T> {
+    T execute(T input);
 }
