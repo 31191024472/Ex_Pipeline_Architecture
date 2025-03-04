@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id 'org.springframework.boot' version '2.5.4' // Ensure you have the Spring Boot plugin
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE' // Dependency management plugin
 }
 
 group = 'org.example'
@@ -10,6 +12,21 @@ repositories {
 }
 
 dependencies {
+    // Spring Boot Web (REST API)
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // Spring Boot AMQP (RabbitMQ)
+    implementation 'org.springframework.boot:spring-boot-starter-amqp'
+
+    // Jackson (Xử lý JSON)
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+
+    // Lombok (Tự động tạo Getters/Setters)
+    implementation 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    // Spring Boot Test
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
 }
