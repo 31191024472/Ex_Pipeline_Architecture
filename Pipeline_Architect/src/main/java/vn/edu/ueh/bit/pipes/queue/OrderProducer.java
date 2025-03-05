@@ -19,11 +19,16 @@ public class OrderProducer {
     public void sendOrder() {
         try {
             // Đọc nội dung file order_data.json
-            String json = new String(Files.readAllBytes(Paths.get("src/main/resources/order_data.json")));
-            Message order = objectMapper.readValue(json, Message.class);
+            String json = new String(Files.readAllBytes(
+                    Paths.get(getClass().getClassLoader().getResource("order_data.json").toURI())));
+
+            System.out.println("📥 Dữ liệu JSON đọc được từ file: " + json);
+
+            Message message = objectMapper.readValue(json, Message.class);
+            System.out.println("📥 Dữ liệu Message sau khi chuyển đổi: " + message);
 
             // Gửi vào RabbitMQ
-            rabbitTemplate.convertAndSend("orderQueue", objectMapper.writeValueAsString(order));
+            rabbitTemplate.convertAndSend("orderQueue", objectMapper.writeValueAsString(message));
             System.out.println("📤 Đơn hàng đã gửi vào queue!");
         } catch (Exception e) {
             e.printStackTrace();

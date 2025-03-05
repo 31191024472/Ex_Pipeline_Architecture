@@ -31,21 +31,21 @@ public class OrderConsumer {
     public void processOrder(String messageJson) {
         try {
             Message message = objectMapper.readValue(messageJson, Message.class);
-            List<Invoice> orders = message.getInvoiceInfo().getInvoices();
-            Note deliveryInfo = message.getInvoiceInfo().getNotes().get(0);
+//            List<Invoice> orders = message.getInvoiceInfo().getInvoices();
 
-            // 1️⃣ Kiểm tra hàng tồn kho
-            if (!inventoryService.checkStock(orders)) {
-                System.out.println("❌ Đơn hàng bị từ chối: Hết hàng!");
+            List<Note> notes = message.getInvoiceInfo().getNotes();
+            if (notes != null && !notes.isEmpty()) {
+                Note deliveryInfo = notes.get(0);
+
+                // Tiến hành xử lý giao nhận
+                if (!deliveryService.checkDelivery(deliveryInfo)) {
+                    System.out.println("❌ Đơn hàng bị từ chối: Không hỗ trợ giao hàng!");
+                    return;
+                }
+            } else {
+                System.out.println("❌ Không có thông tin giao nhận!");
                 return;
             }
-
-            // 2️⃣ Kiểm tra dịch vụ giao nhận
-            if (!deliveryService.checkDelivery(deliveryInfo)) {
-                System.out.println("❌ Đơn hàng bị từ chối: Không hỗ trợ giao hàng!");
-                return;
-            }
-
             // 3️⃣ Kiểm tra khả năng thanh toán với BankService
             String cardNumber = message.getInvoiceInfo().getPayments().get(0).getCardNumber(); // Giả sử bạn lấy thông tin thẻ từ Message
             String cvv = message.getInvoiceInfo().getPayments().get(0).getCvv(); // Giả sử bạn lấy CVV từ Message

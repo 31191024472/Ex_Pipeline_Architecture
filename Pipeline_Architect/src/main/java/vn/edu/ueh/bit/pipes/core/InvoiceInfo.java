@@ -1,13 +1,28 @@
 package vn.edu.ueh.bit.pipes.core;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.util.ArrayList;
 import java.util.List;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class InvoiceInfo {
-    private List<Invoice> invoices;
-    private List<CreditNote> creditNotes;
-    private List<Payment> payments;
-    private List<Note> notes;
+    @JsonProperty("orders")
+    private List<Invoice> invoices = new ArrayList<>();
 
+    private List<CreditNote> creditNotes = new ArrayList<>();
+
+    @JsonProperty("payments")
+    private List<Payment> payments = new ArrayList<>();
+
+    @JsonProperty("delivery")
+    private List<Note> notes = new ArrayList<>();
+
+
+    // Getter và Setter
     public void setInvoices(List<Invoice> invoices) { this.invoices = invoices; }
     public List<Invoice> getInvoices() { return invoices; }
     public void setCreditNotes(List<CreditNote> creditNotes) { this.creditNotes = creditNotes; }
@@ -23,7 +38,18 @@ public class InvoiceInfo {
                 .mapToDouble(invoice -> invoice.getQuantity() * invoice.getPrice())
                 .sum();
     }
+
     @Override
     public String toString() { return "InvoiceInfo"; }
-    public String toJson() { return "{ \"invoices\": " + invoices + " }"; }
+
+    // Phương thức chuyển đối tượng thành JSON
+    public String toJson() {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            return mapper.writeValueAsString(this);  // Sử dụng Jackson để chuyển đổi
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return "{}";
+        }
+    }
 }

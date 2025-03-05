@@ -1,15 +1,29 @@
 package vn.edu.ueh.bit.pipes.core;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.JsonProcessingException;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Message {
-    private String fileContent;
+
+    @JsonProperty("order_info")
     private InvoiceInfo invoiceInfo;
 
-    public void setFileContent(String fileContent) { this.fileContent = fileContent; }
-    public String getFileContent() { return fileContent; }
-    public void setInvoiceInfo(InvoiceInfo invoiceInfo) { this.invoiceInfo = invoiceInfo; }
-    public InvoiceInfo getInvoiceInfo() { return invoiceInfo; }
+    public InvoiceInfo getInvoiceInfo() {
+        return invoiceInfo;
+    }
+
+    public void setInvoiceInfo(InvoiceInfo invoiceInfo) {
+        this.invoiceInfo = invoiceInfo;
+    }
 
     @Override
-    public String toString() { return "Message"; }
-    public String toJson() { return "{ \"fileContent\": \"" + fileContent + "\" }"; }
+    public String toString() {
+        return "Message{" +
+                "invoiceInfo=" + invoiceInfo +
+                '}';
+    }
+
 }
