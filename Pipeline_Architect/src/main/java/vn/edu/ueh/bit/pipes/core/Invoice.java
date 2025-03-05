@@ -5,8 +5,17 @@ public class Invoice {
     private long custId;
     private long productId;
     private long quantity;
+    private double price; // Giá sản phẩm
     private String description;
 
+    public Invoice(long invoiceId, long custId, long productId, long quantity, double price, String description) {
+        this.invoiceId = invoiceId;
+        this.custId = custId;
+        this.productId = productId;
+        this.quantity = quantity;
+        this.price = price;
+        this.description = description;
+    }
     public void setInvoiceId(long invoiceId) { this.invoiceId = invoiceId; }
     public long getInvoiceId() { return invoiceId; }
     public void setCustId(long custId) { this.custId = custId; }
@@ -17,6 +26,13 @@ public class Invoice {
     public long getQuantity() { return quantity; }
     public void setDescription(String description) { this.description = description; }
     public String getDescription() { return description; }
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
 
     @Override
     public String toString() { return "Invoice: " + invoiceId; }

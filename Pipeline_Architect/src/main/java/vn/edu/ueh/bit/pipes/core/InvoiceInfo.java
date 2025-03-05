@@ -17,6 +17,12 @@ public class InvoiceInfo {
     public void setNotes(List<Note> notes) { this.notes = notes; }
     public List<Note> getNotes() { return notes; }
 
+    // Tính tổng số tiền cần thanh toán từ danh sách hóa đơn
+    public double getTotalAmount() {
+        return invoices.stream()
+                .mapToDouble(invoice -> invoice.getQuantity() * invoice.getPrice())
+                .sum();
+    }
     @Override
     public String toString() { return "InvoiceInfo"; }
     public String toJson() { return "{ \"invoices\": " + invoices + " }"; }
