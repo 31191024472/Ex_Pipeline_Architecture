@@ -1,6 +1,9 @@
 package vn.edu.ueh.bit.pipes.core;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.List;
+@JsonIgnoreProperties(ignoreUnknown = true)
 
 public class InvoiceInfo {
     private List<Invoice> invoices;

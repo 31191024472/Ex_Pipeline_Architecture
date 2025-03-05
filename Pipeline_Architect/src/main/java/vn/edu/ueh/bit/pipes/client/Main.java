@@ -1,16 +1,20 @@
 package vn.edu.ueh.bit.pipes.client;
 
+import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import vn.edu.ueh.bit.pipes.queue.OrderProducer;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-public class PipelineApplication {
+@EnableRabbit
+@ComponentScan(basePackages = "vn.edu.ueh.bit.pipes")
+public class Main {
     public static void main(String[] args) {
-        SpringApplication.run(PipelineApplication.class, args);
+        SpringApplication.run(Main.class, args);
     }
 
     @Bean

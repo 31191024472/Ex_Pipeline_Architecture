@@ -25,6 +25,7 @@ public class OrderConsumer {
 
     @RabbitListener(queues = "orderQueue")
     public void processOrder(String messageJson) {
+        System.out.println("📥 Nhận đơn hàng từ queue: " + messageJson);
         try {
             Message message = objectMapper.readValue(messageJson, Message.class);
             List<Invoice> orders = message.getInvoiceInfo().getInvoices();

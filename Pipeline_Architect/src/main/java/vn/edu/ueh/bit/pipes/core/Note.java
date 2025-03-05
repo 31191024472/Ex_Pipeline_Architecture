@@ -1,5 +1,8 @@
 package vn.edu.ueh.bit.pipes.core;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Note {
     private long noteId;
     private String notes;

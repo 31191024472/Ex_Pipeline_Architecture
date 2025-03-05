@@ -1,5 +1,9 @@
 package vn.edu.ueh.bit.pipes.core;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+
 public class Payment {
     private long paymentId;
     private long custId;

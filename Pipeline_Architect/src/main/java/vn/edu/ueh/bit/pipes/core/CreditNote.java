@@ -1,5 +1,9 @@
 package vn.edu.ueh.bit.pipes.core;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+
 public class CreditNote {
     private long creditNoteId;
     private String notes;
